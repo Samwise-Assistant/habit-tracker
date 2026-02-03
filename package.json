@@ -1,0 +1,14 @@
+{
+  "name": "habit-tracker",
+  "version": "1.0.0",
+  "description": "Habit tracker web app",
+  "scripts": {
+    "dev": "npx tailwindcss -i ./app/static/css/input.css -o ./app/static/css/output.css --watch",
+    "build": "npx tailwindcss -i ./app/static/css/input.css -o ./app/static/css/output.css --minify"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.32",
+    "tailwindcss": "^3.4.0"
+  }
+}

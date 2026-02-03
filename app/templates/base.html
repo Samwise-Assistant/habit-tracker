@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Habit Tracker{% endblock %}</title>
+    <meta name="theme-color" content="#1F2937">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="stylesheet" href="/static/css/output.css">
+    <style>
+        .heatmap-cell { width: 12px; height: 12px; border-radius: 2px; }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen font-sans">
+    {% if current_user.is_authenticated %}
+    <header class="bg-white dark:bg-gray-800 shadow">
+        <nav class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <span class="text-2xl">🎯</span>
+                <span class="font-bold text-xl text-gray-900 dark:text-white">Habit Tracker</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <img src="{{ current_user.avatar_url }}" alt="" class="w-8 h-8 rounded-full">
+                <span class="text-gray-600 dark:text-gray-300">{{ current_user.name }}</span>
+                <a href="{{ url_for('logout') }}" class="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">Logout</a>
+            </div>
+        </nav>
+    </header>
+    {% endif %}
+
+    <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="max-w-6xl mx-auto px-4 py-3">
+                        <div class="p-3 rounded-lg {% if category == 'error' %}bg-red-100 text-red-700{% else %}bg-green-100 text-green-700{% endif %}">
+                            {{ message }}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        
+        {% block content %}{% endblock %}
+    </main>
+
+    {% block scripts %}{% endblock %}
+</body>
+</html>
